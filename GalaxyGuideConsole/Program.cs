@@ -15,7 +15,6 @@ namespace GalaxyGuide.Main
 
             foreach (var arg in args)
             {
-
                 manager.ProcessMessage(arg);
             }
 
