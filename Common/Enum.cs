@@ -21,13 +21,4 @@ namespace GalaxyGuide.Common
         HowManyCredits,
         Invalid
     }
-
-    public enum Messages
-    {
-        Sucess,
-        IncorrectInput,
-        NoIdea
-    }
-
-
 }

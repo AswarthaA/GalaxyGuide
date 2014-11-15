@@ -24,7 +24,8 @@ namespace GalaxyGuide.Main
                 if (string.IsNullOrEmpty(line)) continue;
 
                 var status = manager.ProcessMessage(line);
-                Console.Write(status);
+                if (!status.Equals("scuess", StringComparison.CurrentCultureIgnoreCase))
+                    Console.WriteLine(status);
             } while (true);
         }
 
@@ -32,6 +33,7 @@ namespace GalaxyGuide.Main
         {
             Console.WriteLine("*************************************************************************");
             Console.WriteLine("*****************Welcome to Galaxy Mart**********************************");
+            Console.WriteLine("***************** Press ctrl+C to exit **********************************");
             Console.WriteLine("*************************************************************************");
         }
     }

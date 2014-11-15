@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="GalaxyDictionary.cs" />
     <Compile Include="IGalaxyManager.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
