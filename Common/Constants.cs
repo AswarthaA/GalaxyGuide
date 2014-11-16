@@ -11,11 +11,17 @@ namespace GalaxyGuide.Common
 
         public static readonly string HowManyCredits = "how many Credits is";
         public static readonly string HowMuchIs = "how much is";
-        public static readonly string NoIdea = " I have no idea what you are talking about";
+        public static readonly string NoIdea = "I have no idea what you are talking about";
         public static readonly string NoUnits = "No units available to calculate credits";
         public static readonly string InvalidUnits = "Invalid Units";
         public static readonly string InvalidCredits = "Invalid Credits";
+        public static readonly string InvalidRoamns = "Invalid Roamns";
+        public static readonly string InvalidRoamnsCombination =
+            "Invalid combination of Romans symbols as per galaxy guide";
         public static readonly string Sucess = "Sucess";
+        public static readonly string Assigned = "Word assigned";
+        public static readonly string CreditsAssigned = "Credits assigned";
+        public static readonly string CalculatedCredits = "Calculated Credits";
         public static readonly string IncorrectInput = "In correct input";
     }
 }

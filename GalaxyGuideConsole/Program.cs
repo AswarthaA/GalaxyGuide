@@ -1,4 +1,5 @@
 ﻿
+using GalaxyGuide.Common;
 using GalaxyGuide.Server;
 
 namespace GalaxyGuide.Main
@@ -9,8 +10,11 @@ namespace GalaxyGuide.Main
     {
         static void Main(string[] args)
         {
-            var manager = new GalaxyManager();
+            //var galacticUnits = new GalaxyDictionary<string, Romans>();
+            //var itemCredits = new GalaxyDictionary<string, float>();
 
+            //var manager = new GalaxyManager(galacticUnits,itemCredits);
+            var manager = new GalaxyManager();
             PrintInstructions();
 
             foreach (var arg in args)
@@ -20,13 +24,21 @@ namespace GalaxyGuide.Main
 
             do
             {
-                var line = Console.ReadLine();
-                if (string.IsNullOrEmpty(line)) continue;
+                try
+                {
+                    var line = Console.ReadLine();
+                    if (string.IsNullOrEmpty(line)) continue;
 
-                var status = manager.ProcessMessage(line);
-                if (!status.Equals("scuess", StringComparison.CurrentCultureIgnoreCase))
-                    Console.WriteLine(status);
+                    var status = manager.ProcessMessage(line);
+                    if (!status.Equals("scuess", StringComparison.CurrentCultureIgnoreCase))
+                        Console.WriteLine(status);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             } while (true);
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private static void PrintInstructions()

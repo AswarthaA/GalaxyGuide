@@ -1,5 +1,4 @@
 ﻿
-
 namespace GalaxyGuide.Server
 {
     using Common;
@@ -21,7 +20,6 @@ namespace GalaxyGuide.Server
                 case InputType.NewWord:
                     return AddNewWord(inputString);
 
-
                 case InputType.AssignCredits:
                     return AssignCredits(inputString);
 
@@ -41,11 +39,27 @@ namespace GalaxyGuide.Server
             return Constants.IncorrectInput;
         }
 
+        public string GetHinduArabicValue(string romanSting)
+        {
+            if (!ValidateRoman(romanSting))
+                throw new Exception(Constants.InvalidRoamnsCombination);
+
+            var sum = 0;
+            var romanArray = romanSting.ToCharArray();
+            for (var index = 0; index < romanArray.Length; index++)
+            {
+                var nextRoman = (index + 1) >= romanArray.Length ? 'N' : romanArray[index + 1];
+                sum += getSum(romanArray[index], nextRoman);
+            }
+
+            return sum.ToString(CultureInfo.InvariantCulture);
+        }
+
         private string GetHowMuchIs(string inputString)
         {
             inputString =
-                inputString.Replace("?", string.Empty).Trim();
-            var words = inputString.Substring(Constants.HowMuchIs.Length).TrimStart().Split(' ');
+                inputString.Replace("?", string.Empty).Trim().Substring(Constants.HowMuchIs.Length).TrimStart();
+            var words = inputString.Split(' ');
 
             var romanWord = string.Empty;
             foreach (var word in words)
@@ -60,13 +74,14 @@ namespace GalaxyGuide.Server
                 }
             }
 
-            return GetHinduArabicValue(romanWord);
+            return string.Format("{0} is {1}", inputString, GetHinduArabicValue(romanWord));
         }
 
         private string GetHowManyCredits(string inputString)
         {
-            inputString = inputString.Replace("?", string.Empty).Trim();
-            var words = inputString.Substring(Constants.HowManyCredits.Length).TrimStart().Split(' ');
+            inputString =
+                inputString.Replace("?", string.Empty).Trim().Substring(Constants.HowManyCredits.Length).TrimStart();
+            var words = inputString.Split(' ');
             var romanWord = string.Empty;
             foreach (var word in words)
             {
@@ -76,7 +91,9 @@ namespace GalaxyGuide.Server
                 }
                 else if (_itemCredits.ContainsKey(word))
                 {
-                    return (int.Parse(GetHinduArabicValue(romanWord)) * _itemCredits[word]).ToString(CultureInfo.InvariantCulture);
+                    return string.Format("{0} is {1} Credits", inputString,
+                        (int.Parse(GetHinduArabicValue(romanWord))*_itemCredits[word]).ToString(
+                            CultureInfo.InvariantCulture));
                 }
                 else
                 {
@@ -96,7 +113,12 @@ namespace GalaxyGuide.Server
             var romanWord = string.Empty;
             for (var index = 0; index < words.Length; index++)
             {
-                var word = words[index];
+                var word = words[index].Trim();
+
+                if (string.IsNullOrEmpty(word))
+                {
+                    return Constants.NoIdea;
+                }
 
                 if (_galacticUnits.Keys.Contains(word))
                 {
@@ -110,11 +132,11 @@ namespace GalaxyGuide.Server
                     var itemGrossValue = int.Parse(words[index + 2]);
                     var unitValue = (itemGrossValue / float.Parse(GetHinduArabicValue(romanWord)));
                     _itemCredits.AddUpdateKey(word, unitValue);
-                    break;
+                    return Constants.CreditsAssigned;
                 }
             }
 
-            return Constants.Sucess;
+            return Constants.IncorrectInput;
         }
 
         private string AddNewWord(string inputString)
@@ -124,7 +146,7 @@ namespace GalaxyGuide.Server
             var roman = (Romans)Enum.Parse(typeof(Romans), words[2]);
             _galacticUnits.AddUpdateKey(words[0], roman);
 
-            return Constants.Sucess;
+            return Constants.Assigned;
         }
 
         private InputType getTypeOfString(string inputString)
@@ -161,22 +183,21 @@ namespace GalaxyGuide.Server
 
         public string GetRomanValue(string arabicString)
         {
-
-            throw new System.NotImplementedException();
-
+            return Constants.Sucess;
         }
 
-        public string GetHinduArabicValue(string romanSting)
-        {
-            int sum = 0;
-            var romanArray = romanSting.ToCharArray();
-            for (var index = 0; index < romanArray.Length; index++)
-            {
-                var nextRoman = (index + 1) >= romanArray.Length ? 'N' : romanArray[index + 1];
-                sum += getSum(romanArray[index], nextRoman);
-            }
 
-            return sum.ToString(CultureInfo.InvariantCulture);
+
+        private bool ValidateRoman(string romanSting)
+        {
+            var regex = new Regex(Constants.RomanRegex);
+            if (!regex.IsMatch(romanSting))
+                return false;
+
+            if (romanSting.Contains("MMMM"))
+                return false;
+
+            return true;
         }
 
         private int getSum(char currentRoman, char nextRoman)

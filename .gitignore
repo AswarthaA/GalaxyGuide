@@ -15,6 +15,11 @@ $RECYCLE.BIN/
 *.msp
 *.suo
 
+#Folders
+bin
+obj
+packages
+
 # =========================
 # Operating System Files
 # =========================
