@@ -1,4 +1,11 @@
-﻿
+﻿/*
+ *   FileName: CompleteTest.cs
+ *   Class file: This file contains GalaxyManager all valid test scenarios.
+ *   Author: Aswartha Narayana
+ *   Date Created: 16th Nov 2014
+ *   
+ *   Copyright (c) 2014 All Rights Reserved.. :)
+*/
 
 namespace GalaxyUnitTests
 {
@@ -6,11 +13,17 @@ namespace GalaxyUnitTests
     using GalaxyGuide.Server;
     using NUnit.Framework;
 
+    /// <summary>
+    /// Test cases of GalaxyManager, all valid test scenarios.
+    /// </summary>
     [TestFixture]
     public class CompleteTest
     {
         private readonly GalaxyManager _manager = new GalaxyManager();
 
+        /// <summary>
+        /// Test cases of GalaxyManager, all valid test scenarios.
+        /// </summary>
         [TestCase(Description="Complete set of tests")]
         public void CompleteTests()
         {

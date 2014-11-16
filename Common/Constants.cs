@@ -1,4 +1,12 @@
-﻿
+﻿/*
+ *   FileName: Constants.cs
+ *   Class file: This file contains constants used across the solution.
+ *   Author: Aswartha Narayana
+ *   Date Created: 16th Nov 2014
+ *   
+ *   Copyright (c) 2014 All Rights Reserved.. :)
+*/
+
 namespace GalaxyGuide.Common
 {
     public static class Constants

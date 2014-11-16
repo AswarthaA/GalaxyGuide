@@ -1,17 +1,33 @@
-﻿
+﻿/*
+ *   FileName: GalaxyManager.cs
+ *   Class file: This file contains business logic Galaxy guide.
+ *   Author: Aswartha Narayana
+ *   Date Created: 16th Nov 2014
+ *   
+ *   Copyright (c) 2014 All Rights Reserved.. :)
+*/
+
 namespace GalaxyGuide.Server
 {
-    using Common;
     using System;
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Common;
 
+    /// <summary>
+    /// Galaxy manager business logic.
+    /// </summary>
     public class GalaxyManager : IGalaxyManager
     {
         private readonly GalaxyDictionary<string, Romans> _galacticUnits = new GalaxyDictionary<string, Romans>();
         private readonly GalaxyDictionary<string, float> _itemCredits = new GalaxyDictionary<string, float>();
 
+        /// <summary>
+        /// Processes the message based on the type of input.
+        /// </summary>
+        /// <param name="inputString"><see cref="string"/></param>
+        /// <returns><see cref="string"/></returns>
         public string ProcessMessage(string inputString)
         {
             switch (getTypeOfString(inputString))
@@ -39,6 +55,11 @@ namespace GalaxyGuide.Server
             return Constants.IncorrectInput;
         }
 
+        /// <summary>
+        /// /// Converts Roman value to Hindu Arabic value. Like XXI equals to 21
+        /// </summary>
+        /// <param name="romanSting"><see cref="string"/></param>
+        /// <returns><see cref="string"/></returns>
         public string GetHinduArabicValue(string romanSting)
         {
             if (!ValidateRoman(romanSting))
